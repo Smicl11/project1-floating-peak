@@ -1,0 +1,22 @@
+{
+  "name": "project1-floating-peak",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "smicl11 <bryan.smith094@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Smicl11/project1-floating-peak",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "handlebars": "^4.0.5",
+    "bootstrap": "^3.3.6"
+  }
+}
