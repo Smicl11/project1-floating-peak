@@ -1,4 +1,21 @@
+/* CLIENT-SIDE JS */
+
 $(document).ready(function() {
-  //code goes here
+  $.ajax({
+    method: "GET",
+    url: "api/sanity",
+    success: sanitySuccess,
+    error: sanityError
+  });
 
 });
+
+function sanitySuccess(json) {
+  console.log("you did it!");
+  console.log(json);
+}
+
+function sanityError(error) {
+  console.log("DAMMIT! ERROR!!");
+  console.log(error);
+}
