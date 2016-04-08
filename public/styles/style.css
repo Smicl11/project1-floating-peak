@@ -1,5 +1,5 @@
 .jumbotron {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.21)), url(/images/floatingPeak.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.31)), url(/images/floatingPeak.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   color: #EEE;
@@ -12,4 +12,8 @@
   display: inline-block;
   vertical-align: baseline;
   margin-right: 12px;
+}
+
+#photo-form {
+  padding-top: 50px;
 }
