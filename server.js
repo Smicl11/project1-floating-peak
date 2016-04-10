@@ -30,7 +30,7 @@ app.get('/', function homepage (req, res) {
 /*
  * JSON API Endpoints
  */
-app.get('/api/sanity', function sanity (req, res) {
+app.get('/api/photos', function sanity (req, res) {
   res.send(200).json({
     message: "hello, world"
   });

@@ -1,10 +1,13 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var Tag = require("./tag.js");
 
 var PhotoSchema = new Schema ({
+  title: 'String',
+  about: 'String',
   url: 'String',
-  date: 'String',
-  story: 'String'
+  tags: [Tag.schema],
+  comment: 'String'
 });
 
 var Photo = mongoose.model('Photo', PhotoSchema);
