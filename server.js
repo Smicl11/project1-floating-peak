@@ -35,6 +35,20 @@ app.get('/api/photos', function index (req, res) {
   });
 });
 
+app.post('/api/photos', function create(req, res) {
+
+  var tags = req.body.tags.split(',').map(function(item) { return {tag: item.trim()}; } );
+  req.body.tags = tags;
+
+  console.log('body', req.body);
+
+  db.Photo.create(req.body, function(err, photo) {
+    if (err) { console.log('error', err); }
+    console.log(photo);
+    res.json(photo);
+  });
+});
+
 
 
 /**********
