@@ -35,7 +35,7 @@
 
   <div id="photos">
     <script id="pic-template" type="text/x-handlebars-template">
-      <div class="container">
+      <div class="container photo-post">
         <div class="row">
           <div class="col-sm-6">
             <h3>{{title}}</h3>
@@ -46,7 +46,7 @@
             <button class='btn btn-danger delete'>Delete Post</button>
           </div>
           <div class="col-sm-6">
-            <img src="{{url}}" height="480" width="700"></img>
+            <img src="{{url}}" class='rendered-image'></img>
           </div>
         </div>
       </div>
