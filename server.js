@@ -3,7 +3,6 @@
 var express = require('express');
 var app = express();
 var db = require('./models');
-var controllers = require('./controllers');
 
 // serve static files from public folder
 app.use(express.static(__dirname + '/public'));
