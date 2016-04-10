@@ -11,7 +11,7 @@ $(document).ready(function() {
       method: 'POST',
       url: '/api/photos/',
       data: $(this).serialize(),
-      success: renderPhotos,
+      success: renderNewPhoto,
       error: handleError
     });
     $(this).trigger("reset");
@@ -20,7 +20,14 @@ $(document).ready(function() {
 
 });
 
-function renderPhotos () {
+function renderNewPhoto(photo) {
+  var source = $('#pic-template').html();
+  var template = Handlebars.compile(source);
+  var newHTML = template(photo);
+  $('#photos').append(newHTML);
+}
+
+function renderPhotos() {
   $.ajax({
     method: 'GET',
     url: '/api/photos/',
