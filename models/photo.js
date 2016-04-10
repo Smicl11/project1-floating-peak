@@ -7,7 +7,6 @@ var PhotoSchema = new Schema ({
   about: 'String',
   url: 'String',
   tags: [Tag.schema],
-  comment: 'String'
 });
 
 var Photo = mongoose.model('Photo', PhotoSchema);

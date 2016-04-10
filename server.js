@@ -30,9 +30,9 @@ app.get('/', function homepage (req, res) {
 /*
  * JSON API Endpoints
  */
-app.get('/api/photos', function sanity (req, res) {
-  res.send(200).json({
-    message: "hello, world"
+app.get('/api/photos', function index (req, res) {
+  db.Photo.find({}, function (err, allPhotos) {
+    res.json(allPhotos);
   });
 });
 
