@@ -40,5 +40,5 @@ function renderHTML(pics) {
   var source = $('#pic-template').html();
   var template = Handlebars.compile(source);
   var newHTML = template(pics);
-  $('#feed').append(newHTML);
+  $('#photos').append(newHTML);
 }
