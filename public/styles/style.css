@@ -17,3 +17,12 @@
 #photo-form {
   padding-top: 50px;
 }
+
+.rendered-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.photo-post {
+  margin-bottom: 30px;
+}
