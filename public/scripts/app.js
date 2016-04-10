@@ -2,12 +2,7 @@
 
 $(document).ready(function() {
   //grab data from the server to display on the page
-  $.ajax({
-    method: 'GET',
-    url: '/api/photos/',
-    success: handleSuccess,
-    error: handleError
-  });
+  renderPhotos();
 
   //capture data from user submission and POST it to the site.
   $('#photo-share form').on('submit', function(event){
@@ -16,7 +11,7 @@ $(document).ready(function() {
       method: 'POST',
       url: '/api/photos/',
       data: $(this).serialize(),
-      success: handleSuccess,
+      success: renderPhotos,
       error: handleError
     });
     $(this).trigger("reset");
@@ -25,7 +20,14 @@ $(document).ready(function() {
 
 });
 
-
+function renderPhotos () {
+  $.ajax({
+    method: 'GET',
+    url: '/api/photos/',
+    success: handleSuccess,
+    error: handleError
+  });
+}
 
 function handleSuccess(json) {
   json.forEach(renderHTML);
