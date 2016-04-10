@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var TagSchema = new Schema ({
-  tag: ['String'],
+  tag: 'String',
 
 });
 
