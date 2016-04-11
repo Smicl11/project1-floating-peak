@@ -42,7 +42,7 @@
             <p>{{about}}</p>
             <p>Tags</p>
             <ul class='tags-list'>{{#each tags}}<li class='tag-item' data-tag-id="{{_id}}">{{tag}}</li> {{/each}}</ul>
-            <button class='btn btn-primary edit'>Edit</button>
+            <button class='btn btn-primary edit-photo'>Edit</button>
             <button class='btn btn-success save-photo hidden'>Save Changes</button>
             <button class='btn btn-primary edit-tags'>Edit Tags</button>
             <button class='btn btn-danger delete-photo' data-photo-id="{{_id}}">Delete Post</button>
@@ -86,7 +86,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="url">URL</label>
               <div class="col-md-4">
-                <input id="url" name="url" type="text" placeholder="www.google.com/image.jpg" class="form-control input-md" required="">
+                <input id="url" name="url" type="text" placeholder="www.example.com/image.jpg" class="form-control input-md" required="">
               </div>
             </div>
 
