@@ -79,7 +79,13 @@ app.get('/api/photos/:pid/tags', function index (req, res) {
 
 
 app.post('/api/photos/:pid/tags', function create(req, res) {
-  
+  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
+    var newTag = new db.Tag(req.body);
+    foundPhoto.tags.push(newTag);
+    foundPhoto.save(function(err, savedPhoto) {
+      res.json(newTag);
+    });
+  });
 });
 
 
