@@ -19,14 +19,31 @@ $(document).ready(function() {
   $('#photos').on('click', '.delete-photo', handleDelete);
   $('#photos').on('click', '.edit-photo', handleEdit);
   $('#photos').on('click', '.save-photo', saveEdits);
-
   /* Edit Tags */
   $('#photos').on('click', '.edit-tags', editTags);
-
-  $('#editTagModalBody').on('click', 'button.btn-danger', handleDeleteSongClick);
-  $('#editTagModal').on('click', 'button#editTagModalSubmit', handleUpdateSongsSave);
+  $('#editTagModalBody').on('click', 'button.btn-danger', handleTagDelete);
+  $('#editTagModal').on('click', 'button#editTagModalSubmit', handleTagUpdate);
 
 });
+
+
+function editTags(event) {
+  var currentPost = $(this).closest('.photo-post');
+  var photoId = currentPost.data('photo-id');
+  $.get('/api/photos/' + photoId + "/tags", function(tags) {
+    console.log('got back tags: ', tags);
+    populateEditTagsModal(tags);
+    $('#editSongsModal').modal();
+  });
+}
+
+
+function populateEditTagsModal(tag) {
+  var templateHtml = $('#tag-edit-template').html();
+  var template = Handlebars.compile(templateHtml);
+  tagForm = template({tag: tag});
+  $('#editTagModalBody').html(tagForm);
+}
 
 
 function handleEdit(event) {
