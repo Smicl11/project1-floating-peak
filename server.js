@@ -68,12 +68,16 @@ app.put('/api/photos/:pid', function update(req, res) {
   });
 });
 
+
+/* Tag API Endpoints*/
 app.get('/api/photos/:pid/tags', function index (req, res) {
   db.Photo.findById(req.params.pid, function(err, foundPhoto) {
-    console.log('resoinding with tags: ', foundPhoto.tags);
+    /* REMOVE */console.log('resoinding with tags: ', foundPhoto.tags);
     res.json(foundPhoto.tags);
   });
 });
+
+
 
 /**********
  * SERVER *
