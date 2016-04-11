@@ -21,9 +21,7 @@ $(document).ready(function() {
   $('#photos').on('click', '.save-photo', saveEdits);
 
   /* Edit Tags */
-  $('#photos').on('click', '.edit-tags', function show(){
-    $('#editTagModal').modal();
-  });
+  $('#photos').on('click', '.edit-tags', editTags);
 
   $('#editTagModalBody').on('click', 'button.btn-danger', handleDeleteSongClick);
   $('#editTagModal').on('click', 'button#editTagModalSubmit', handleUpdateSongsSave);
@@ -34,7 +32,6 @@ $(document).ready(function() {
 function handleEdit(event) {
   var currentPost = $(this).closest('.photo-post');
   var photoId = currentPost.data('photo-id');
-/* REMOVE */console.log('edit photo', photoId);
 
   currentPost.find('.save-photo').toggleClass('hidden');
   currentPost.find('.edit-photo').toggleClass('hidden');
@@ -46,6 +43,7 @@ function handleEdit(event) {
   currentPost.find('p.about').html('<input class="edit-about" value="' + about + '"></input>');
 }
 
+
 function saveEdits(event) {
   var photoId = $(this).closest('.photo-post').data('photo-id');
   var currentPost = $('[data-photo-id=' + photoId + ']');
@@ -54,8 +52,6 @@ function saveEdits(event) {
     title: currentPost.find('.edit-title').val(),
     about: currentPost.find('.edit-about').val(),
   };
-  /* REMOVE */console.log('PUTing data for album', photoId, 'with data', data);
-
   $.ajax({
     method: 'PUT',
     url: '/api/photos/' + photoId,
@@ -64,11 +60,13 @@ function saveEdits(event) {
   });
 }
 
+
 function updatePhoto (data) {
   var photoId = data._id;
   $('[data-photo-id=' + photoId + ']').remove();
   renderPhotos(data);
 }
+
 
 function renderPhotos() {
   $.ajax({
@@ -79,6 +77,7 @@ function renderPhotos() {
   });
 }
 
+
 function renderHTML(pics) {
   var source = $('#pic-template').html();
   var template = Handlebars.compile(source);
@@ -86,9 +85,9 @@ function renderHTML(pics) {
   $('#photos').append(newHTML);
 }
 
+
 function handleDelete(event) {
   var photoId = $(this).closest('.photo-post').data('photo-id');
-  /* REMOVE WHEN ISSUE RESOLVED*/  console.log('someone wants to delete photo id=' + photoId );
   $.ajax({
     url: '/api/photos/' + photoId,
     method: 'DELETE',
@@ -97,11 +96,12 @@ function handleDelete(event) {
   });
 }
 
+
 function handleDeletePhotoSuccess(data) {
-  /* REMOVE */  console.log(data);
   var deletedPhotoId = data._id;
   $('div[data-photo-id=' + deletedPhotoId + ']').remove();
 }
+
 
 function renderNewPhoto(photo) {
   var source = $('#pic-template').html();
@@ -110,12 +110,13 @@ function renderNewPhoto(photo) {
   $('#photos').append(newHTML);
 }
 
+
 function handleSuccess(json) {
   json.forEach(renderHTML);
 }
 
+
 function handleError(error) {
   console.log("DAMMIT! ERROR!! ", error);
-  //Change the alert into a modal if possible within time contraints
   alert("Sorry, something went wrong. Please try again later.");
 }
