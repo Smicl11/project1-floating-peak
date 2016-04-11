@@ -20,6 +20,14 @@ $(document).ready(function() {
   $('#photos').on('click', '.edit-photo', handleEdit);
   $('#photos').on('click', '.save-photo', saveEdits);
 
+  /* Edit Tags */
+  $('#photos').on('click', '.edit-tags', function show(){
+    $('#editTagModal').modal();
+  });
+
+  $('#editTagModalBody').on('click', 'button.btn-danger', handleDeleteSongClick);
+  $('#editTagModal').on('click', 'button#editTagModalSubmit', handleUpdateSongsSave);
+
 });
 
 
@@ -60,7 +68,6 @@ function updatePhoto (data) {
   var photoId = data._id;
   $('[data-photo-id=' + photoId + ']').remove();
   renderPhotos(data);
-  $('[data-photo-id=' + photoId + ']')[0].scrollIntoView();
 }
 
 function renderPhotos() {
