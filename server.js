@@ -49,6 +49,12 @@ app.post('/api/photos', function create(req, res) {
   });
 });
 
+app.delete('/api/photos/:pid', function destroy(req, res){
+  db.Photo.findOneAndRemove({ _id: req.params.photoId }, function(err, foundPhoto){
+    res.json(foundPhoto);
+    console.log(foundPhoto);
+  });
+});
 
 
 /**********
