@@ -40,7 +40,8 @@
           <div class="col-sm-6">
             <h3>{{title}}</h3>
             <p>{{about}}</p>
-            <ul class='tags-list'>{{#each tags}} <li class='tag-item' data-tag-id="{{_id}}">{{tag}}</li> {{/each}}</ul>
+            <p>Tags</p>
+            <ul class='tags-list'>{{#each tags}}<li class='tag-item' data-tag-id="{{_id}}">{{tag}}</li> {{/each}}</ul>
             <button class='btn btn-primary edit'>Edit</button>
             <button class='btn btn-success save-photo hidden'>Save Changes</button>
             <button class='btn btn-primary edit-tags'>Edit Tags</button>
