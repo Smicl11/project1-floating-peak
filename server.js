@@ -44,7 +44,7 @@ app.post('/api/photos', function create(req, res) {
 
   db.Photo.create(req.body, function(err, photo) {
     if (err) { console.log('error', err); }
-    console.log(photo);
+    /* REMOVE */console.log(photo);
     res.json(photo);
   });
 });
@@ -52,11 +52,12 @@ app.post('/api/photos', function create(req, res) {
 app.delete('/api/photos/:pid', function destroy(req, res) {
   db.Photo.findOneAndRemove({ _id: req.params.photoId }, function(err, foundPhoto){
     res.json(foundPhoto);
-    console.log(foundPhoto);
+    /* REMOVE */console.log("this is what the server returned: ", foundPhoto);
   });
 });
 
 app.put('/api/photos/:pid', function update(req, res) {
+  /* REMOVE */console.log('updating with data', req.body);
   db.Photo.findById(req.params.photoId, function(err, foundPhoto) {
     if(err) { console.log('error', err); }
     foundPhoto.title = req.body.title;
