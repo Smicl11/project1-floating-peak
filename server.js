@@ -68,58 +68,6 @@ app.put('/api/photos/:pid', function update(req, res) {
   });
 });
 
-
-/* Tag API Endpoints*/
-app.get('/api/photos/:pid/tags', function index (req, res) {
-  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
-    /* REMOVE */console.log('resoinding with tags: ', foundPhoto.tags);
-    res.json(foundPhoto.tags);
-  });
-});
-
-
-app.post('/api/photos/:pid/tags', function create(req, res) {
-  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
-    var newTag = new db.Tag(req.body);
-    foundPhoto.tags.push(newTag);
-    foundPhoto.save(function(err, savedPhoto) {
-      res.json(newTag);
-    });
-  });
-});
-
-
-app.delete('/api/photos/:pid/tags/:tid', function destroy(req, res) {
-  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
-    var selectedTag = foundPhoto.tags.id(req.params.tid);
-    if (selectedTag) {
-      selectedTag.remove();
-      foundPhoto.save(function(err, saved) {
-        console.log('Removed ', selectedTag);
-        res.json(selectedTag);
-      });
-    } else {
-      res.send(404);
-    }
-  });
-});
-
-
-app.put('/api/photos/:pid/tags/:tid', function update(req, res) {
-  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
-    var selectedTag = foundPhoto.tags.id(req.params.tid);
-    if (selectedTag) {
-      selectedTag.tag = req.body.tag;
-      foundPhoto.save(function(err, saved) {
-        console.log('Updated ', selectedTag);
-        res.json(selectedTag);
-      });
-    } else {
-      res.send(404);
-    }
-  });
-});
-
 /**********
  * SERVER *
  **********/
