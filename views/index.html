@@ -35,15 +35,16 @@
 
   <div id="photos">
     <script id="pic-template" type="text/x-handlebars-template">
-      <div class="container photo-post">
+      <div class="container photo-post" data-photo-id="{{_id}}">
         <div class="row">
           <div class="col-sm-6">
             <h3>{{title}}</h3>
             <p>{{about}}</p>
-            <ul class='tags-list'>{{#each tags}} <li class='tag-item'>{{tag}}</li> {{/each}}</ul>
+            <ul class='tags-list'>{{#each tags}} <li class='tag-item' data-tag-id="{{_id}}">{{tag}}</li> {{/each}}</ul>
             <button class='btn btn-primary edit'>Edit</button>
+            <button class='btn btn-success save-photo hidden'>Save Changes</button>
             <button class='btn btn-primary edit-tags'>Edit Tags</button>
-            <button class='btn btn-danger delete'>Delete Post</button>
+            <button class='btn btn-danger delete-photo' data-photo-id="{{_id}}">Delete Post</button>
           </div>
           <div class="col-sm-6">
             <img src="{{url}}" class='rendered-image'></img>
