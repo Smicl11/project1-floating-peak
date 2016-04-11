@@ -19,13 +19,32 @@ $(document).ready(function() {
 
   $('#photos').on('click', '.delete-photo', handleDelete);
 
+  $('#photos').on('click', '.edit-photo', handleEdit);
+
 });
 
 
-function handleDelete(e) {
-  console.log("clicked!");
+
+
+function renderPhotos() {
+  $.ajax({
+    method: 'GET',
+    url: '/api/photos/',
+    success: handleSuccess,
+    error: handleError
+  });
+}
+
+function renderHTML(pics) {
+  var source = $('#pic-template').html();
+  var template = Handlebars.compile(source);
+  var newHTML = template(pics);
+  $('#photos').append(newHTML);
+}
+
+function handleDelete(event) {
   var photoId = $(this).parents('.photo-post').data('photo-id');
-  console.log('someone wants to delete photo id=' + photoId );
+  console.log('someone wants to delete photo id=' + photoId ); //remove this when issue resolved
   $.ajax({
     url: '/api/photos/' + photoId,
     method: 'DELETE',
@@ -35,7 +54,7 @@ function handleDelete(e) {
 }
 
 function handleDeletePhotoSuccess(data) {
-  console.log(data);
+  console.log(data); //remove this
   var deletedPhotoId = data._id;
   $('div[data-photo-id=' + deletedPhotoId + ']').remove();
 }
@@ -47,27 +66,11 @@ function renderNewPhoto(photo) {
   $('#photos').append(newHTML);
 }
 
-function renderPhotos() {
-  $.ajax({
-    method: 'GET',
-    url: '/api/photos/',
-    success: handleSuccess,
-    error: handleError
-  });
-}
-
 function handleSuccess(json) {
   json.forEach(renderHTML);
 }
 
 function handleError(error) {
-  console.log("DAMMIT! ERROR!!");
-  console.log(error);
-}
-
-function renderHTML(pics) {
-  var source = $('#pic-template').html();
-  var template = Handlebars.compile(source);
-  var newHTML = template(pics);
-  $('#photos').append(newHTML);
+  console.log("DAMMIT! ERROR!! ", error);
+  alert("Sorry, something went wrong. Please try again later."); //change this to a modal in the future
 }
