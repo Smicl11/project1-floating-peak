@@ -52,6 +52,8 @@ function handleEdit(event) {
 
   currentPost.find('.save-photo').toggleClass('hidden');
   currentPost.find('.edit-photo').toggleClass('hidden');
+  currentPost.find('.edit-tags').toggleClass('hidden');
+  currentPost.find('.delete-photo').toggleClass('hidden');
 
   var title = currentPost.find('h3.title').text();
   currentPost.find('h3.title').html('<input class="edit-title" value="' + title + '"></input>');
