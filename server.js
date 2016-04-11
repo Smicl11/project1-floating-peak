@@ -90,12 +90,34 @@ app.post('/api/photos/:pid/tags', function create(req, res) {
 
 
 app.delete('api/photos/:pid/tags/:tid', function destroy(req, res) {
-
+  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
+    var selectedTag = foundPhoto.tags.id(req.params.tid);
+    if (selectedTag) {
+      selectedTag.remove();
+      foundPhoto.save(function(err, saved) {
+        console.log('Removed ', selectedTag);
+        res.json(selectedTag);
+      });
+    } else {
+      res.send(404);
+    }
+  });
 });
 
 
 app.put('/api/photos/:pid/tags/:tid', function update(req, res) {
-
+  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
+    var selectedTag = foundPhoto.tags.id(req.params.tid);
+    if (selectedTag) {
+      selectedTag.tag = req.body.tag;
+      foundPhoto.save(function(err, saved) {
+        console.log('Updated ', selectedTag);
+        res.json(selectedTag);
+      });
+    } else {
+      res.send(404);
+    }
+  });
 });
 
 /**********
