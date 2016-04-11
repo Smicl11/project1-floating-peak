@@ -62,15 +62,16 @@ app.put('/api/photos/:pid', function update(req, res) {
     foundPhoto.title = req.body.title;
     foundPhoto.about = req.body.about;
     foundPhoto.save(function(err, savedPhoto) {
-      if(err) { console.log('save failed'); }
+      if(err) { console.log('save photo failed'); }
       res.json(savedPhoto);
     });
   });
 });
 
 app.get('/api/photos/:pid/tags', function index (req, res) {
-  db.Tag.find({}, function (err, allTags) {
-    res.json(allTags);
+  db.Photo.findById(req.params.pid, function(err, foundPhoto) {
+    console.log('resoinding with tags: ', foundPhoto.tags);
+    res.json(foundPhoto.tags);
   });
 });
 
