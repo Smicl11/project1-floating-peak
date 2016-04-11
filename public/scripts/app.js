@@ -17,8 +17,28 @@ $(document).ready(function() {
     $(this).trigger("reset");
   });
 
+  $('#photos').on('click', '.delete-photo', handleDelete);
 
 });
+
+
+function handleDelete(e) {
+  console.log("clicked!");
+  var photoId = $(this).parents('.photo-post').data('photo-id');
+  console.log('someone wants to delete photo id=' + photoId );
+  $.ajax({
+    url: '/api/photos/' + photoId,
+    method: 'DELETE',
+    success: handleDeletePhotoSuccess,
+    error: handleError
+  });
+}
+
+function handleDeletePhotoSuccess(data) {
+  console.log(data);
+  var deletedPhotoId = data._id;
+  $('div[data-photo-id=' + deletedPhotoId + ']').remove();
+}
 
 function renderNewPhoto(photo) {
   var source = $('#pic-template').html();
