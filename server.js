@@ -18,22 +18,19 @@ app.use(bodyParser.urlencoded({ extended: true}));
  * ROUTES *
  **********/
 
-/*
- * HTML Endpoints
- */
-
+/* HTML Endpoints */
 app.get('/', function homepage (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-/*
- * JSON API Endpoints
- */
+
+/* JSON API Endpoints */
 app.get('/api/photos', function index (req, res) {
   db.Photo.find({}, function (err, allPhotos) {
     res.json(allPhotos);
   });
 });
+
 
 app.post('/api/photos', function create(req, res) {
 
@@ -49,12 +46,14 @@ app.post('/api/photos', function create(req, res) {
   });
 });
 
+
 app.delete('/api/photos/:pid', function destroy(req, res) {
   db.Photo.findOneAndRemove({ _id: req.params.pid }, function(err, foundPhoto){
     res.json(foundPhoto);
     /* REMOVE */console.log("this is what the server returned: ", foundPhoto);
   });
 });
+
 
 app.put('/api/photos/:pid', function update(req, res) {
   /* REMOVE */console.log('updating with data', req.body);
@@ -69,6 +68,11 @@ app.put('/api/photos/:pid', function update(req, res) {
   });
 });
 
+app.get('/api/photos/:pid/tags', function index (req, res) {
+  db.Tag.find({}, function (err, allTags) {
+    res.json(allTags);
+  });
+});
 
 /**********
  * SERVER *
