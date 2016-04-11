@@ -89,7 +89,7 @@ app.post('/api/photos/:pid/tags', function create(req, res) {
 });
 
 
-app.delete('api/photos/:pid/tags/:tid', function destroy(req, res) {
+app.delete('/api/photos/:pid/tags/:tid', function destroy(req, res) {
   db.Photo.findById(req.params.pid, function(err, foundPhoto) {
     var selectedTag = foundPhoto.tags.id(req.params.tid);
     if (selectedTag) {
