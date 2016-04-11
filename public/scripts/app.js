@@ -35,7 +35,7 @@ function editTags(event) {
   $.get('/api/photos/' + photoId + "/tags", function(tags) {
     console.log('got back tags: ', tags);
     populateEditTagsModal(tags);
-    $('#editSongsModal').modal();
+    $('#editTagModal').modal();
   });
 }
 
