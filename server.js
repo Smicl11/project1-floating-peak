@@ -49,10 +49,22 @@ app.post('/api/photos', function create(req, res) {
   });
 });
 
-app.delete('/api/photos/:pid', function destroy(req, res){
+app.delete('/api/photos/:pid', function destroy(req, res) {
   db.Photo.findOneAndRemove({ _id: req.params.photoId }, function(err, foundPhoto){
     res.json(foundPhoto);
     console.log(foundPhoto);
+  });
+});
+
+app.put('/api/photos/:pid', function update(req, res) {
+  db.Photo.findById(req.params.photoId, function(err, foundPhoto) {
+    if(err) { console.log('error', err); }
+    foundPhoto.title = req.body.title;
+    foundPhoto.about = req.body.about;
+    foundPhoto.save(function(err, savedPhoto) {
+      if(err) { console.log('save failed'); }
+      res.json(savedPhoto);
+    });
   });
 });
 
