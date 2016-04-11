@@ -14,8 +14,9 @@
   margin-right: 12px;
 }
 
-#photo-form {
-  padding-top: 50px;
+#photo-share {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .rendered-image {
