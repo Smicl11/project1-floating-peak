@@ -16,34 +16,105 @@ $(document).ready(function() {
     $(this).trigger("reset");
   });
 
-  /* POST CHANGES */
+  /* Changes existing post */
   $('#photos').on('click', '.delete-photo', handleDelete);
   $('#photos').on('click', '.edit-photo', handleEdit);
   $('#photos').on('click', '.save-photo', saveEdits);
+  $('#photos').on('click', '.cancel', cancelChanges);
   /* Edit Tags */
   $('#photos').on('click', '.edit-tags', editTags);
-  $('#editTagModalBody').on('click', 'button.btn-danger', handleTagDelete);
-  $('#editTagModal').on('click', 'button#editTagModalSubmit', handleTagUpdate);
+  $('#editTagModalBody').on('click', 'button.delete-tag', handleDeleteTagClick);
+  $('#editTagModal').on('click', 'button#editTagModalSave', handleTagUpdate);
 
 });
 
+function handleTagUpdate(event) {
+  var $modal = $('#editTagModal');
+  if($modal.find('form').length < 1) {
+    $modal.modal('hide');
+    return;
+  }
+
+  var photoId = $modal.find('form').data('photo-id');
+  var updatedTags = [];
+
+  $modal.find('form').each(function () {
+    var aTag = {};
+    aTag._id = $(this).attr('id');
+    aTag.tag = $(this).find('input.tag-name').val();
+    updatedTags.push(aTag);
+  });
+  $modal.modal('hide');
+  updateMultipleTags(photoId, updatedTags);
+}
+
+
+function updateMultipleTags(photoId, tags) {
+  var url = '/api/photos/' + photoId + '/tags/';
+  var deferreds = [];
+
+  tags.forEach(function(tag) {
+    var ajaxCall = $.ajax({
+      method: 'PUT',
+      url: url + tag._id,
+      data: tag,
+      error: function(err) { console.log('uh oh! ', err); }
+    });
+    deferreds.push(ajaxCall);
+  });
+
+  $.when.apply(null, deferreds).always(function() {
+    reRenderWithUpdates(photoId);
+  });
+}
+
+
+function handleDeleteTagClick(e) {
+  e.preventDefault();  // this is a form!
+  var deleteButton = $(this);
+  var tagId = deleteButton.data('tag-id');
+  var photoId = deleteButton.closest('form').data('photo-id');
+  console.log(photoId);
+
+  $.ajax({
+    method: 'DELETE',
+    url: '/api/photos/' + photoId + '/tags/' + tagId,
+    success: handleTagDeleteResponse
+  });
+}
+
+
+function handleTagDeleteResponse(data) {
+  var tagId = data._id;
+  var tagRow = $('form#' + tagId);
+  var photoId = tagRow.data('photo-id');
+  tagRow.remove();
+  reRenderWithUpdates(photoId);
+}
+
+
+function reRenderWithUpdates(photoId) {
+  $.get('/api/photos/' + photoId, function(data) {
+    $('div[data-photo-id=' + photoId + ']').remove();
+    renderNewPhoto(data);
+  });
+}
 
 
 function editTags(event) {
   var currentPost = $(this).closest('.photo-post');
   var photoId = currentPost.data('photo-id');
   $.get('/api/photos/' + photoId + "/tags", function(tags) {
-    console.log('got back tags: ', tags);
-    populateEditTagsModal(tags);
+    populateEditTagsModal(tags, photoId);
     $('#editTagModal').modal();
   });
 }
 
 
-function populateEditTagsModal(tag) {
+function populateEditTagsModal(tags, photoId) {
   var templateHtml = $('#tag-edit-template').html();
   var template = Handlebars.compile(templateHtml);
-  tagForm = template({tag: tag});
+  tagForm = template({tags: tags, photoId: photoId});
   $('#editTagModalBody').html(tagForm);
 }
 
@@ -63,6 +134,24 @@ function handleEdit(event) {
 
   var about = currentPost.find('p.about').text();
   currentPost.find('p.about').html('<input class="edit-about" value="' + about + '"></input>');
+}
+
+
+function cancelChanges(event) {
+  var currentPost = $(this).closest('.photo-post');
+  var photoId = currentPost.data('photo-id');
+
+  currentPost.find('.save-photo').toggleClass('hidden');
+  currentPost.find('.edit-photo').toggleClass('hidden');
+  currentPost.find('.edit-tags').toggleClass('hidden');
+  currentPost.find('.delete-photo').toggleClass('hidden');
+  currentPost.find('.cancel').toggleClass('hidden');
+
+  var title = currentPost.find('h3.title input').val();
+  currentPost.find('h3.title').text(title);
+
+  var about = currentPost.find('p.about input').val();
+  currentPost.find('p.about').text(about);
 }
 
 
