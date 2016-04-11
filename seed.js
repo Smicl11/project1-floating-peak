@@ -46,3 +46,5 @@ db.Photo.remove({}, function(err, photos){
   });
 
 });
+
+console.log("Database has been refreshed with seed data.");
