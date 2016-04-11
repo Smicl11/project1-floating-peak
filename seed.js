@@ -28,7 +28,7 @@ photoList.push({
   });
 
 var sampleTags = [];
-sampleTags.push({ tag: 'Dreamcatcher' });
+sampleTags.push({ tag: 'dreamcatcher' });
 sampleTags.push({ tag: 'tumblr' });
 sampleTags.push({ tag: 'cleanse' });
 
