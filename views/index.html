@@ -141,12 +141,12 @@
   <!-- Tag Handlebars Template -->
   <script id='tag-edit-template' type='text/x-handlebars-template'>
     {{#each tag}}
-      <form class="form-inline" id="{{_id}}" data-tag-id="{{../tagId}}" >
+      <form class="form-inline" id="{{_id}}" data-photo-id="{{../photoId}}" >
         <div class="form-group">
           <input type="text" class="form-control tag" value="{{tag}}">
         </div>
         <div class="form-group">
-          <button class="btn btn-danger" data-song-id="{{_id}}">x</button>
+          <button class="btn btn-danger" data-tag-id="{{_id}}">Delete</button>
         </div>
       </form>
     {{/each}}
