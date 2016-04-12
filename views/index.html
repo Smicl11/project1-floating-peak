@@ -42,10 +42,10 @@
               <p class='about'>{{about}}</p>
               <p>Tags</p>
               <ul class='tags-list'>{{#each tags}}<li class='tag-item' data-tag-id="{{_id}}">{{tag}}</li> {{/each}}</ul>
-              <button class='btn btn-primary edit-photo'>Edit</button>
+              <button class='btn btn-default edit-photo'>Edit</button>
               <button class='btn btn-success save-photo hidden'>Save Changes</button>
               <button class='btn btn-danger delete-photo hidden' data-photo-id="{{_id}}">Delete Post</button>
-              <button type="button" class="btn btn-default cancel hidden">Cancel</button>
+              <button type="button" class="btn btn-info cancel hidden">Cancel</button>
             </div>
             <div class="col-sm-6">
               <img src="{{url}}" class='rendered-image'></img>
@@ -117,6 +117,7 @@
 
   <footer>
     <div class='panel-footer'>
+      <p>Created by: Bryan Smith</p>
     </div>
   </footer>
 
