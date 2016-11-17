@@ -13,9 +13,7 @@
 
    <!-- VENDOR SCRIPTS -->
    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
-
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
 
    <!-- APPLICATION SCRIPTS -->
@@ -38,6 +36,9 @@
         <div class="container photo-post" data-photo-id="{{_id}}">
           <div class="row">
             <div class="col-sm-6">
+              <img src="{{url}}" class='rendered-image'></img>
+            </div>
+            <div class="col-sm-6">
               <h3 class='title'>{{title}}</h3>
               <p class='about'>{{about}}</p>
               <p>Tags</p>
@@ -46,9 +47,6 @@
               <button class='btn btn-success save-photo hidden'>Save Changes</button>
               <button class='btn btn-danger delete-photo hidden' data-photo-id="{{_id}}">Delete Post</button>
               <button type="button" class="btn btn-info cancel hidden">Cancel</button>
-            </div>
-            <div class="col-sm-6">
-              <img src="{{url}}" class='rendered-image'></img>
             </div>
           </div>
         </div>
