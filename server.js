@@ -34,14 +34,13 @@ app.get('/api/photos', function index (req, res) {
 
 app.post('/api/photos', function create(req, res) {
 
-  var tags = req.body.tags.split(',').map(function(item) { return {tag: item.trim()}; } );
+  var tags = req.body.tags.split('#').map(function(item) { return {tag: item.trim()}; } );
   req.body.tags = tags;
 
   console.log('body', req.body);
 
   db.Photo.create(req.body, function(err, photo) {
     if (err) { console.log('error', err); }
-    /* REMOVE */console.log(photo);
     res.json(photo);
   });
 });
@@ -50,13 +49,11 @@ app.post('/api/photos', function create(req, res) {
 app.delete('/api/photos/:pid', function destroy(req, res) {
   db.Photo.findOneAndRemove({ _id: req.params.pid }, function(err, foundPhoto){
     res.json(foundPhoto);
-    /* REMOVE */console.log("this is what the server returned: ", foundPhoto);
   });
 });
 
 
 app.put('/api/photos/:pid', function update(req, res) {
-  /* REMOVE */console.log('updating with data', req.body);
   db.Photo.findById(req.params.pid, function(err, foundPhoto) {
     if(err) { console.log('error', err); }
     foundPhoto.title = req.body.title;
